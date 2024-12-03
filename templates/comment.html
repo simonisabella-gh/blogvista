@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+
+<a class="btn btn-secondary" href="{% url 'home' %}">Back to profile</a><br>
+
+<h3>{{ post.title }}</h3><br>
+  by  {{ post.author }}<br>
+        {{ post.body }}<br>
+<b>{{ post.created_on }}</b><br>
+ {{ form.as_p }}
+    <input type="submit" value="submit">
+    Comments:<br>
+    {% for comment in comments %}
+    {{ comment.author }}
+    {{ comment.created_on }}
+    {{ comment.body }}
+
+    {% endfor %}
+
+</form>
+{% endblock %}
+</body>
+
+</html>

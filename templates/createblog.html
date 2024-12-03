@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogs</title>
+    <style>/* Container styles */
+    .container { background-color: white;
+    margin:0 auto;
+     padding: 20px;
+     border-radius: 5px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     width: 500px; }
+        .container:hover{
+        background-color:indigo;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+
+<a class="btn btn-secondary" href="{% url 'home' %}">Back to profile</a><br><br>
+<label for="">Type your content here..</label><br><br>
+{% if user.is_authenticated %}
+        <label for="">{{ user.username }}</label>
+{% endif %}
+    <table>
+  {{ form.as_table }}
+        </table>
+<input type="submit" value="POST THIS">
+
+        </div>
+</form>
+ {% endblock %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <style></style>
+</head>
+<body>
+<header>
+
+    {% block title %}
+    {% if user.is_authenticated %}
+    <label>welcome</label>
+{{ user.username }}
+    <nav class="navbar navbar-light bg-dark" id="navbar">
+<ul>
+<li><a class="btn btn-secondary" href="{% url 'update' %}">UpdateUserDetails</a></li>
+<li><a class="btn btn-secondary" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-secondary" href="{% url 'logout' %}">Logout</a></li>
+</ul>
+</nav>{% endif %}
+{% endblock %}
+
+</header>
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+<div class="container">
+<h1 id="logo">Welcome to Homepage</h1>
+{% for post in posts %}
+    <h6><b>{{ post.title }}</b></h6>
+  by  {{ post.author }}<br>
+        {{ post.body }}<br>
+{{ post.created_on }}
+    <a href="{% url 'blogcomment' post.pk %}">Leave a comment...</a><br>
+{% endfor %}
+</div>
+</form>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>updateuserDetails</title>
+</head>
+<body>
+{% for msg in messages %}
+{{ msg }}
+{% endfor %}
+{% if user.is_authenticated %}
+  {% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+
+    <label for="">Username</label>
+    <input type="text" name="username" placeholder="username" value="{{ user.username }}">
+
+    <label for="">Firstname</label>
+    <input type="text" name="firstname" placeholder="firstname" value="{{ user.first_name }}">
+
+    <label for="">Lastname</label>
+    <input type="text" name="lastname" placeholder="lastname" value="{{ user.last_name }}">
+
+    <label for="">Email</label>
+    <input type="email" name="email" placeholder="email" value="{{ user.email }}" disabled>
+
+
+
+ <input type="submit" value="Save Changes">
+
+</form>
+{% endif %}{% endblock %}
+</body>
+
+
+
+</html>

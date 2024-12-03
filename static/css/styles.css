@@ -1,0 +1,57 @@
+
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: red;
+    color: #444;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+
+.a{
+    margin: 2%;
+    padding: 2%;
+    width: 1380px;
+    height: 150px;
+    box-sizing: border-box;
+    background-color: black;
+
+}
+#logo{
+    color: pink;
+    float: inline-start;
+    font-style: normal;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+li{
+    float:left;
+}
+ul{
+    list-style-type: none;
+}
+li a{
+    display: inline;
+    text-decoration: none;
+    color: chartreuse;
+    font: bold;
+
+}
+/* Container styles */
+    .container { background-color: violet ;
+    margin:0 auto;
+     padding: 20px;
+     border-radius: 5px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     width: 500px;
+}
+    /* Navigation bar styles */
+    #navbar {
+     margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black; }
+      .navbar li { list-style-type: none;
+      float: right; }
