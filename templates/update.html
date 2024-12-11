@@ -7,6 +7,19 @@
     <title>updateuserDetails</title>
 </head>
 <body>
+<header>
+    {% block title %}
+    <nav class="navbar navbar-light" id="navbar" style="background-color:#234F1E;">
+
+        <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
+<ul>
+<li><a class="btn btn-success custom-btn" href="{% url 'update' %}">UpdateUserDetails</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
+</ul>
+</nav>
+{% endblock %}
+</header>
 {% for msg in messages %}
 {{ msg }}
 {% endfor %}
@@ -15,8 +28,9 @@
 {% if user.is_authenticated %}
 <form action="" method="post">
     {% csrf_token %}
+    <div class="container mt-5">
 <table>
-    <a class="btn btn-secondary" href="{% url 'home' %}">Back to profile</a><br><br>
+    <a class="btn btn-success custom-btn" href="{% url 'home' %}">Back to profile</a><br><br>
     <tr><td><label for="">Username</label></td>
         <td><input type="text" name="username" placeholder="username" value="{{ user.username }}"></td></tr>
 
@@ -33,6 +47,7 @@
 <tr><td>
     <input type="submit" value="Save Changes"></td></tr>
 </table>
+    </div>
 </form>
 {% endif %}{% endblock %}
 </body>

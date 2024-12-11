@@ -16,6 +16,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
+    post_img=models.ImageField(upload_to='images/',default='path/to/default/image.jpg')
     body = models.TextField()
     author=models.CharField(max_length=200)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -23,6 +24,7 @@ class Post(models.Model):
     categories = models.ManyToManyField("Category", related_name="posts")
     def __str__(self):
         return '{}'.format(self.title)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

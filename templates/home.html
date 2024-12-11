@@ -15,11 +15,13 @@
     {% if user.is_authenticated %}
     <label>welcome</label>
 {{ user.username }}
-    <nav class="navbar navbar-light bg-dark" id="navbar">
+    <nav class="navbar navbar-light" id="navbar" style="background-color:#234F1E;">
+
+        <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
 <ul>
-<li><a class="btn btn-secondary" href="{% url 'update' %}">UpdateUserDetails</a></li>
-<li><a class="btn btn-secondary" href="{% url 'createblog' %}">Blogs</a></li>
-<li><a class="btn btn-secondary" href="{% url 'logout' %}">Logout</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'update' %}">UpdateUserDetails</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
 </ul>
 </nav>{% endif %}
 {% endblock %}
@@ -28,16 +30,25 @@
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-<div class="container">
-<h1 id="logo">Welcome to Homepage</h1>
-{% for post in posts %}
-    <h6><b>{{ post.title }}</b></h6>
-  by  {{ post.author }}<br>
-        {{ post.body }}<br>
-{{ post.created_on }}
-    <a href="{% url 'blogcomment' post.pk %}">Leave a comment...</a><br>
-{% endfor %}
+
+   <div class="container mt-5">
+    {% for post in posts %}
+    <div class="row mb-3">
+        <div class="col-sm-4">
+            <img src="{{ post.post_img.url }}" class="img-fluid" alt="{{ post.title }}" style="width: 300px; height: 300px;">
+        </div>
+        <div class="col-sm-8">
+            <h5>{{ post.title }}</h5>
+            <a href="{% url 'blogcomment' post.pk %}" class="btn btn-success custom-btn" style="background-color:028A0F;">Read more</a>
+            <p>by {{ post.author }}<br><small class="text-muted">{{ post.created_on }}</small></p>
+            <a href="{% url 'blogcomment' post.pk %}" class="btn btn-success custom-btn">Leave a comment...</a>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
+
+
 </form>
 {% endblock %}
 </body>

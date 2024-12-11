@@ -16,7 +16,11 @@
 <form action="" method="post">
     {% csrf_token %}
     <div class="container">
-
+<div class="row mb-3">
+<div class="col-sm-4">
+            <img src="\media\images\logoimg.jpg" class="img-fluid" style="width: 300px; height: 300px;">
+        </div>
+<div class="col-sm-8">
         <table>
             <tr><td> <label for="">Username</label></td>
                 <td> <input type="text" name="username" placeholder="username"></td></tr>
@@ -37,10 +41,12 @@
                 <td><input type="password" name="cpassword" placeholder="Confirm password"></td></tr>
 
             <tr><td colspan="2"><input type="submit" value="Register"></td>
-            <td><a class="btn btn-secondary" href="{% url 'login' %}">Login</a></td></tr>
+            <td><a class="btn btn-success" href="{% url 'login' %}">Login</a></td></tr>
             </table>
 
 </div>
+</div>
+    </div>
 </form>
  {% endblock %}
 </body>

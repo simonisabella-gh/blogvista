@@ -13,6 +13,7 @@ from . models import Post,Comment
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseRedirect
 from .forms import CommentForm
+from .forms import PostForm
 
 
 class ProjectIndex(View):
@@ -147,12 +148,30 @@ class PasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
     template_name = 'password_reset_confirm.html'
     success_message = "Your password has been reset successfully. You can now log in."
     success_url = reverse_lazy('login')
-
 class CreateBlog(CreateView):
+    model = Post
+    form_class = PostForm
     template_name = 'createblog.html'
-    model=Post
-    fields=['title','body','categories','author']
-    success_url=reverse_lazy('home')
+    success_url = reverse_lazy('home')
+# class CreateBlog(CreateView):
+#     template_name = 'createblog.html'
+#     model=Post
+#     fields=['title','post_img','body','categories','author']
+#     def get(self,request):
+#         context={
+#             "post":post,
+#             "form":PostForm(),
+#         }
+#         return render(request, self.template_name, context)
+#     def post(self, request):
+#         form = PostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home')
+#         else:
+#             form = PostForm()
+#         return render(request, self.template_name, {'form': form})
+
 
 class BlogComment(View):
     template_name = 'comment.html'

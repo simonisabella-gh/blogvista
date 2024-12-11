@@ -1,4 +1,5 @@
 from django import forms
+from .models import Post
 
 class CommentForm(forms.Form):
     author = forms.CharField(
@@ -12,3 +13,14 @@ class CommentForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Leave a comment!"}
         )
     )
+class PostForm(forms.ModelForm):
+    class Meta:
+        model=Post
+        fields=['title','post_img','body','author','created_on','last_modified','categories']
+        exclude=['created_on','last_modified']
+
+
+
+
+
+

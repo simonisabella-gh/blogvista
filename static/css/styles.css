@@ -3,8 +3,8 @@
 /* General styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: red;
-    color: #444;
+    background-color: white;
+    color: black;
     margin: 0;
     padding: 0;
 }
@@ -19,7 +19,9 @@ body {
     box-sizing: border-box;
     background-color: black;
 
-}
+}a{color:red;}
+.custom-btn { background-color: #4CAF50;}
+input[type="submit"]{background-color: #4CAF50;}
 #logo{
     color: pink;
     float: inline-start;
@@ -40,18 +42,21 @@ li a{
 
 }
 /* Container styles */
-    .container { background-color: black ;
-    margin:0 auto;
-     padding: 20px;
-     border-radius: 5px;
-     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-     width: 500px;
-}
+    .container { background-color: #228B22;
+     display: block;
+      margin: 20px auto; /* Center the container horizontally */
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%; /* Set the width to 100% */
+      max-width: 1200px; /* Define a maximum width */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      }
     /* Navigation bar styles */
     #navbar {
      margin: 0;
       padding: 0;
       overflow: hidden;
-      background-color: black; }
+      background-color: #808000; }
       .navbar li { list-style-type: none;
-      float: right; }
+      display:flex;
+      place-items:center; }
