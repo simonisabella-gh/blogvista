@@ -18,9 +18,11 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
          name='password_reset_confirm'),
-    path("CreateBlogView/", views.CreateBlog.as_view(), name='createblog'),
-    path("CommentView/<int:pk>/",views.BlogComment.as_view(),name='blogcomment'),
-
+    path("CreateBlogView/<str:username>/", views.CreateBlogView.as_view(), name='createblog'),
+    path("CommentView/<int:pk>/",views.BlogCommentView.as_view(),name='blogcomment'),
+    path("EditPostView/<int:pk>/",views.EditpostView.as_view(),name='editpost'),
+    path("DeletePostView/<int:pk>/",views.DeletePostView.as_view(),name='deletepost'),
+    path("DeleteCommentView/<int:pk>/",views.DeleteCommentView.as_view(),name='deletecomment')
 
 ]
 if settings.DEBUG:

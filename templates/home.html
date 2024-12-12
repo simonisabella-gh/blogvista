@@ -20,7 +20,7 @@
         <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
 <ul>
 <li><a class="btn btn-success custom-btn" href="{% url 'update' %}">UpdateUserDetails</a></li>
-<li><a class="btn btn-success custom-btn" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'createblog' user.username %}">Blogs</a></li>
 <li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
 </ul>
 </nav>{% endif %}
@@ -40,7 +40,7 @@
         <div class="col-sm-8">
             <h5>{{ post.title }}</h5>
             <a href="{% url 'blogcomment' post.pk %}" class="btn btn-success custom-btn" style="background-color:028A0F;">Read more</a>
-            <p>by {{ post.author }}<br><small class="text-muted">{{ post.created_on }}</small></p>
+            <p>by {{ post.author }}<br><small>{{ post.created_on }}</small></p>
             <a href="{% url 'blogcomment' post.pk %}" class="btn btn-success custom-btn">Leave a comment...</a>
         </div>
     </div>

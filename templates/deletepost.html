@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% load static %}
+ <title>Edit Post</title>
+<header>{% block title %}
+    <nav class="navbar navbar-light" id="navbar" style="background-color:#234F1E;">
+        <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
+        <ul>
+            <li><a class="btn btn-success custom-btn" href="{% url 'update' %}">Update User Details</a></li>
+            <li><a class="btn btn-success custom-btn" href="{% url 'createblog' user.username %}">Blogs</a></li>
+            <li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+  </header>{% endblock %}
+  {% block content %}
+<div class="container mt-5">
+    <h2>Are you sure you want to delete this post?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" name="action" value="delete" class="btn btn-danger">
+        <a class="btn btn-secondary custom-btn" href="{% url 'home' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

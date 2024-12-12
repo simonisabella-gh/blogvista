@@ -14,7 +14,7 @@
         <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
 <ul>
 <li><a class="btn btn-success custom-btn" href="{% url 'update' %}">UpdateUserDetails</a></li>
-<li><a class="btn btn-success custom-btn" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'createblog' user.username %}">Blogs</a></li>
 <li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
 </ul>
 </nav>

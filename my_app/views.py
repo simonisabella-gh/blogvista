@@ -1,5 +1,8 @@
 from gc import get_objects
 from lib2to3.fixes.fix_input import context
+
+from django.contrib.admin import action
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
@@ -9,6 +12,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
+from django.views.generic import UpdateView, DeleteView
+
 from . models import Post,Comment
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseRedirect
@@ -148,61 +153,65 @@ class PasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
     template_name = 'password_reset_confirm.html'
     success_message = "Your password has been reset successfully. You can now log in."
     success_url = reverse_lazy('login')
-class CreateBlog(CreateView):
+
+
+class CreateBlogView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'createblog.html'
     success_url = reverse_lazy('home')
-# class CreateBlog(CreateView):
-#     template_name = 'createblog.html'
-#     model=Post
-#     fields=['title','post_img','body','categories','author']
-#     def get(self,request):
-#         context={
-#             "post":post,
-#             "form":PostForm(),
-#         }
-#         return render(request, self.template_name, context)
-#     def post(self, request):
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home')
-#         else:
-#             form = PostForm()
-#         return render(request, self.template_name, {'form': form})
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
-class BlogComment(View):
+
+
+class BlogCommentView(View):
     template_name = 'comment.html'
-
     def get(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
         comments = post.comments.all()
-        context = {
-            "post": post,
-            "comments": comments,
-            "form": CommentForm(),
-        }
+        context = { "post": post, "comments": comments, "form": CommentForm(), }
         return render(request, self.template_name, context)
-
     def post(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = Comment(
-                author=form.cleaned_data["author"],
-                body=form.cleaned_data["body"],
-                post=post,
-            )
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
             comment.save()
+
             return HttpResponseRedirect(request.path_info)
-
         comments = post.comments.all()
-        context = {
-            "post": post,
-            "comments": comments,
-            "form": form,
-        }
-        return render(request, self.template_name, context)
+        context = { "post": post, "comments": comments, "form": form, }
+        return render(request, self.template_name,context)
 
+class EditpostView(UpdateView):
+    template_name = 'editpost.html'
+    form_class=PostForm
+    model = Post
+    success_url = reverse_lazy('home')
+
+class DeletePostView(DeleteView):
+    template_name = 'deletepost.html'
+
+    model=Post
+    success_url = reverse_lazy('home')
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class DeleteCommentView(DeleteView):
+    template_name = 'deletecomment.html'
+
+    model = Comment
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

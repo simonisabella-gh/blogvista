@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+ <title>Edit Post</title>
+<header>{% block title %}
+    <nav class="navbar navbar-light" id="navbar" style="background-color:#234F1E;">
+        <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
+        <ul>
+            <li><a class="btn btn-success custom-btn" href="{% url 'update' %}">Update User Details</a></li>
+            <li><a class="btn btn-success custom-btn" href="{% url 'createblog' user.username %}">Blogs</a></li>
+            <li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+  </header>{% endblock %}
+  {% block content %}
+  {% if user.is_authenticated %}
+    {% with object as post %}
+      <div class="container mt-5">
+          <a class="btn btn-success custom-btn" href="{% url 'home' %}">Back to profile</a><br>
+          <div class="row mb-3">
+              <div class="col-sm-4">
+                  <img src="{{ post.post_img.url }}" class="img-fluid" alt="{{ post.title }}" style="width: 300px; height: 300px;">
+              </div>
+              <div class="col-sm-8">
+                  <form action="" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+<!--                      <input type="text" name="title" placeholder="Post title" value="{{ form.title.value }}">-->
+<!--                      <textarea name="body" placeholder="Post content">{{ form.body.value }}</textarea>-->
+<!--                      <p>by {{ post.author }}<br><small>{{ post.created_on }}</small></p>-->
+                      {{ form.as_p }}
+                      <a class="btn btn-success custom-btn" href="{% url 'deletepost' post.pk %}">Delete</a><br>
+                      <input type="submit" value="Edit">
+
+                  </form>
+              </div>
+          </div>
+      </div>
+    {% endwith %}
+  {% endif %}
+{% endblock %}
+
+
+

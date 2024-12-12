@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         <img src="\media\images\logoimg.jpg" id="logo" style="width: 150px; height: 150px;">
 <ul>
 <li><a class="btn btn-success custom-btn" href="{% url 'update' %}">UpdateUserDetails</a></li>
-<li><a class="btn btn-success custom-btn" href="{% url 'createblog' %}">Blogs</a></li>
+<li><a class="btn btn-success custom-btn" href="{% url 'createblog' user.username %}">Blogs</a></li>
 <li><a class="btn btn-success custom-btn" href="{% url 'logout' %}">Logout</a></li>
 </ul>
 </nav>
@@ -32,15 +32,26 @@
   by  {{ post.author }}<br>
         {{ post.body }}<br>
 <b>{{ post.created_on }}</b><br>
+{% if user.is_authenticated %}
+        {% if post.author == user.username or user.username == 'admin' %}
+        <a class="btn btn-success custom-btn" href="{% url 'editpost' post.pk %}">Edit post</a>
+        {% endif %}
+
  {{ form.as_p }}
     <input type="submit" value="submit">
     Comments:<br>
     {% for comment in comments %}
-    {{ comment.author }}
-    {{ comment.created_on }}
-    {{ comment.body }}
+    {{ comment.author }}: {{ comment.body }}<br>
+    {{ comment.created_on }}<br>
+         {% if post.author == user.username or user.username == 'admin' %}
+<a class="btn btn-success custom-btn" href="{% url 'deletecomment' comment.pk %}">Delete Comment</a><br>
+        {% endif %}
 
-    {% endfor %}
+
+{% endfor %}
+
+{% endif %}
+
     </div>
 </form>
 {% endblock %}
